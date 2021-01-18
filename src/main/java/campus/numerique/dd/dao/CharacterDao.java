@@ -12,4 +12,7 @@ public interface CharacterDao {
 
     public Character add(Character character);
 
+    public Character putById(Character newCharacter, int id);
+
+    public Character deleteById(int id);
 }

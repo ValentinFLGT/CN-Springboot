@@ -41,4 +41,27 @@ public class CharacterDaoImplements implements CharacterDao {
         return character;
     }
 
+    @Override
+    public Character deleteById(int id) {
+        for (Character character : characters) {
+            if (character.getId() == id) {
+                characters.remove(character);
+                return character;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public Character putById(Character newCharacter, int id) {
+        for (Character character : characters) {
+            if (character.getId() == id) {
+                character.setName(newCharacter.getName());
+                character.setType(newCharacter.getType());
+                return character;
+            }
+        }
+        return null;
+    }
+
 }

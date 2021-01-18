@@ -22,13 +22,28 @@ public class CharacterController {
     }
 
     @GetMapping("/character")
-    public List<Character> getCharacter() {
+    public List<Character> get() {
         return characterDao.findAll();
     }
 
     @GetMapping("/character/{id}")
-    public Character getCharacterById(@PathVariable int id) {
+    public Character getById(@PathVariable int id) {
         return characterDao.findById(id);
+    }
+
+    @PostMapping("/character")
+    public Character add(@RequestBody Character character) {
+        return characterDao.add(character);
+    }
+
+    @DeleteMapping("/character/{id}")
+    public Character delete(@PathVariable int id) {
+        return characterDao.deleteById(id);
+    }
+
+    @PutMapping("/character/{id}")
+    public Character put(@RequestBody Character newCharacter, @PathVariable int id) {
+        return characterDao.putById(newCharacter, id);
     }
 
 }
