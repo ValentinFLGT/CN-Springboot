@@ -2,6 +2,7 @@ package campus.numerique.dd.controller;
 
 import campus.numerique.dd.dao.CharacterDao;
 import campus.numerique.dd.model.Character;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -9,12 +10,9 @@ import java.util.List;
 @RestController
 public class CharacterController {
 
-    private final CharacterDao characterDao;
+    @Autowired
+    private CharacterDao characterDao;
 
-    // Initiate a characterDao to access its methods
-    public CharacterController(CharacterDao characterDao) {
-        this.characterDao = characterDao;
-    }
 
     @GetMapping("/")
     public String index() {
