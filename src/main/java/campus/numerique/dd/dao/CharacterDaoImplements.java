@@ -1,67 +1,66 @@
 package campus.numerique.dd.dao;
 
 import campus.numerique.dd.model.Character;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class CharacterDaoImplements implements CharacterDao {
 
-    // ArrayList to simulate our database
-    public static List<Character> characters = new ArrayList<>();
-
-    static {
-        characters.add(new Character(1, "Valentin", "Warrior"));
-        characters.add(new Character(2, "Damien", "Warrior"));
-        characters.add(new Character(3, "Aurelie", "Wizard"));
-        characters.add(new Character(4, "Adil", "Warrior"));
-        characters.add(new Character(5, "Sonia", "Wizard"));
-    }
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
 
     @Override
     public List<Character> findAll() {
-        return characters;
+        return jdbcTemplate.query(
+                "select * from Characters",
+                (rs, rowNum) ->
+                        new Character(
+                                rs.getInt("id"),
+                                rs.getString("name"),
+                                rs.getString("type")
+                        )
+        );
+    }
+
+    // jdbcTemplate.queryForObject, populates a single object
+    @Override
+    public Optional<Character> findById(int id) {
+        return jdbcTemplate.queryForObject(
+                "select * from Characters where id = ?",
+                new Object[]{id},
+                (rs, rowNum) ->
+                        Optional.of(new Character(
+                                rs.getInt("id"),
+                                rs.getString("name"),
+                                rs.getString("type")
+                        ))
+        );
     }
 
     @Override
-    public Character findById(int id) {
-        for (Character character : characters) {
-            if (character.getId() == id) {
-                return character;
-            }
-        }
-        return null;
+    public int add(Character character) {
+        return jdbcTemplate.update(
+                "insert into Characters (name, type) values(?,?)",
+                character.getName(), character.getType());
     }
 
     @Override
-    public Character add(Character character) {
-        characters.add(character);
-        return character;
+    public int update(Character character, int id) {
+        return jdbcTemplate.update(
+                "update Characters set name = ?, type = ? where id = ?",
+                character.getName(), character.getType(), id);
     }
 
     @Override
-    public Character deleteById(int id) {
-        for (Character character : characters) {
-            if (character.getId() == id) {
-                characters.remove(character);
-                return character;
-            }
-        }
-        return null;
-    }
-
-    @Override
-    public Character putById(Character newCharacter, int id) {
-        for (Character character : characters) {
-            if (character.getId() == id) {
-                character.setName(newCharacter.getName());
-                character.setType(newCharacter.getType());
-                return character;
-            }
-        }
-        return null;
+    public int deleteById(int id) {
+        return jdbcTemplate.update(
+                "delete from Characters where id = ?",
+                id);
     }
 
 }

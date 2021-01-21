@@ -3,16 +3,17 @@ package campus.numerique.dd.dao;
 import campus.numerique.dd.model.Character;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface CharacterDao {
 
-    public List<Character> findAll();
+    List<Character> findAll();
 
-    public Character findById(int id);
+    Optional<Character> findById(int id);
 
-    public Character add(Character character);
+    int add(Character character);
 
-    public Character putById(Character newCharacter, int id);
+    int update(Character character, int id);
 
-    public Character deleteById(int id);
+    int deleteById(int id);
 }

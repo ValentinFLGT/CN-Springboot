@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @Tag(name = "DD API", description = "the D&D API")
 @RestController
@@ -26,23 +27,23 @@ public class CharacterController {
     }
 
     @GetMapping("/character/{id}")
-    public Character getById(@PathVariable int id) {
+    public Optional<Character> getById(@PathVariable int id) {
         return characterDao.findById(id);
     }
 
     @PostMapping("/character")
-    public Character add(@RequestBody Character character) {
+    public int add(@RequestBody Character character) {
         return characterDao.add(character);
     }
 
     @DeleteMapping("/character/{id}")
-    public Character delete(@PathVariable int id) {
+    public int delete(@PathVariable int id) {
         return characterDao.deleteById(id);
     }
 
     @PutMapping("/character/{id}")
-    public Character put(@RequestBody Character newCharacter, @PathVariable int id) {
-        return characterDao.putById(newCharacter, id);
+    public int update(@RequestBody Character character, @PathVariable int id) {
+        return characterDao.update(character, id);
     }
 
 }
