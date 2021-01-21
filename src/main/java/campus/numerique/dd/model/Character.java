@@ -6,10 +6,6 @@ public class Character {
     private String name;
     private String type;
 
-    // default constructor
-    public Character() {
-    }
-
     // test constructor
     public Character(Integer id, String name, String type) {
         this.id = id;

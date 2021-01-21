@@ -2,17 +2,18 @@ package campus.numerique.dd.controller;
 
 import campus.numerique.dd.dao.CharacterDao;
 import campus.numerique.dd.model.Character;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Tag(name = "DD API", description = "the D&D API")
 @RestController
 public class CharacterController {
 
     @Autowired
     private CharacterDao characterDao;
-
 
     @GetMapping("/")
     public String index() {
