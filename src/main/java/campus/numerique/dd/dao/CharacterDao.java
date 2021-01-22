@@ -1,19 +1,12 @@
 package campus.numerique.dd.dao;
 
 import campus.numerique.dd.model.Character;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-import java.util.List;
-import java.util.Optional;
+@Repository
+public interface CharacterDao extends JpaRepository<Character, Integer> {
 
-public interface CharacterDao {
+    Character findById(int id);
 
-    List<Character> findAll();
-
-    Optional<Character> findById(int id);
-
-    int add(Character character);
-
-    int update(Character character, int id);
-
-    int deleteById(int id);
 }

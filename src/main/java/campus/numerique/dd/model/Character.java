@@ -1,16 +1,25 @@
 package campus.numerique.dd.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity(name = "Characters")
 public class Character {
 
+    @Id
+    @GeneratedValue
     private Integer id;
-    private String name;
-    private String type;
 
-    // test constructor
-    public Character(Integer id, String name, String type) {
-        this.id = id;
-        this.name = name;
-        this.type = type;
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "gender")
+    private String gender;
+
+    public Character(){
+
     }
 
     public Integer getId() {
@@ -29,12 +38,12 @@ public class Character {
         this.name = name;
     }
 
-    public String getType() {
-        return type;
+    public String getGender() {
+        return gender;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
     @Override
@@ -42,7 +51,7 @@ public class Character {
         return "Character{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", type='" + type + '\'' +
+                ", gender='" + gender + '\'' +
                 '}';
     }
 }
